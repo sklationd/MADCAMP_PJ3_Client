@@ -1,11 +1,14 @@
 package com.example.project3;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.viewpager.widget.PagerAdapter;
 
@@ -32,7 +35,15 @@ public class Adapter extends PagerAdapter {
         inflater = (LayoutInflater)mcontext.getSystemService
                 (Context.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.slider, container, false);
-        ImageView imageView = (ImageView)v.findViewById(R.id.imageView);
+        ImageView imageView = (ImageView)v.findViewById(R.id.circleimage);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("imageview","onclicked");
+                Intent intent=new Intent(MainActivity.getParentContext(), Genre.class);
+                MainActivity.getParentContext().startActivity(intent);
+            }
+        });
         imageView.setImageResource(images[position]);
         container.addView(v);
         return v;

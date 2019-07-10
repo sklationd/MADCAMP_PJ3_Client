@@ -1,61 +1,86 @@
 package com.example.project3;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.view.animation.TranslateAnimation;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.Toast;
 
-import com.google.android.youtube.player.YouTubeBaseActivity;
-import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
-public class MainActivity extends YouTubeBaseActivity {
+import java.util.ArrayList;
 
-    YouTubePlayerView youTubeView;
-    Button button;
-    YouTubePlayer.OnInitializedListener listener;
+public class MainActivity extends AppCompatActivity {
+    private ImageView genre;
+    private ArrayList<Integer> genrelist =new ArrayList<Integer>();
+    private TranslateAnimation anim;
+    private int position = 0;
+    Adapter adapter;
+    ViewPager viewPager;
+    public static Context context;
+
+    public static Context getParentContext(){
+        return context;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        context = getApplicationContext();
 
-        button = (Button) findViewById(R.id.youtubebutton);
-        youTubeView = (YouTubePlayerView) findViewById(R.id.youtubeView);
+        genrelist.add(R.drawable.one);
+        genrelist.add(R.drawable.two);
+        genrelist.add(R.drawable.three);
+        genrelist.add(R.drawable.four);
+        genrelist.add(R.drawable.five);
+        genrelist.add(R.drawable.six);
+//        genre = findViewById(R.id.genre);
+//        genre.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(getApplicationContext(), "hiphop", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        anim = new TranslateAnimation(-500, 50, 50, 50);
+//        anim.setDuration(1000);
+//        anim.setFillAfter(true);
+        viewPager= (ViewPager) findViewById(R.id.viewpager);
+        adapter = new Adapter(this);
+        viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(3);
 
-        //리스너 등록부분
-        listener = new YouTubePlayer.OnInitializedListener() {
-            //초기화 성공시
-            @Override
-            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                youTubePlayer.loadVideo("lOlUzxFSOe4");//url의 맨 뒷부분 ID값만 넣으면 됨
-            }
-
-            @Override
-
-            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-
-            }
-        };
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                //첫번째 인자는 API키값 두번째는 실행할 리스너객체를 넘겨줌
-                youTubeView.initialize("AIzaSyDiBVQ9_7WFC4gPBfH2dPpb9wqCjnxvQA0", listener);
-            }
-
-        });
-        Button login = (Button) findViewById(R.id.login);
-        login.setOnClickListener(new Button.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Intent intent=new Intent(MainActivity.this,Genre.class);
-                startActivity(intent);
-            }
-        });
+//        genre.setOnTouchListener(new OnSwipeTouchListener(Genre.this) {
+//            public void onSwipeTop() {
+//                Toast.makeText(Genre.this, "top", Toast.LENGTH_SHORT).show();
+//            }
+//            public void onSwipeRight() {
+//                Toast.makeText(Genre.this, "right", Toast.LENGTH_SHORT).show();
+//                position = (position==0) ? 5:position-1;
+//                genre.startAnimation(anim);
+//                genre.setImageResource(genrelist.get(position));
+//
+//            }
+//            public void onSwipeLeft() {
+//                Toast.makeText(Genre.this, "left", Toast.LENGTH_SHORT).show();
+//                position = (position==5) ? 0:position+1;
+//                genre.startAnimation(anim);
+//                genre.setImageResource(genrelist.get(position));
+//
+//            }
+//            public void onSwipeBottom() {
+//                Toast.makeText(Genre.this, "bottom", Toast.LENGTH_SHORT).show();
+//
+//            }
+//
+//        });
     }
+
+
 }
