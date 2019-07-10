@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">PROJECT3</string>
+
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_email">Username</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_password_confirmation">Password Confirmation</string>
+    <string name="action_sign_in">로그인</string>
+    <string name="action_register">회원가입</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >8 characters</string>
+    <string name="login_failed">"Login failed"</string>
+
+    <string name="login_uri">"http://13.125.213.243:8080/api/auth/login"</string>
+    <string name="register">"http://13.125.213.243:8080/api/users"</string>
+
 </resources>
