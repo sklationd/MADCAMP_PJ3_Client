@@ -2,6 +2,7 @@ package com.example.project3;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -47,6 +48,14 @@ public class MainActivity extends YouTubeBaseActivity {
                 youTubeView.initialize("AIzaSyDiBVQ9_7WFC4gPBfH2dPpb9wqCjnxvQA0", listener);
             }
 
+        });
+        Button login = (Button) findViewById(R.id.login);
+        login.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intent=new Intent(MainActivity.this,Genre.class);
+                startActivity(intent);
+            }
         });
     }
 }
