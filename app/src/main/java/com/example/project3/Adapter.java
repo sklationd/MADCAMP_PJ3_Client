@@ -31,7 +31,7 @@ public class Adapter extends PagerAdapter {
         return view == ((View) object);
     }
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, final int position) {
         inflater = (LayoutInflater)mcontext.getSystemService
                 (Context.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.slider, container, false);
@@ -41,6 +41,7 @@ public class Adapter extends PagerAdapter {
             public void onClick(View view) {
                 Log.d("imageview","onclicked");
                 Intent intent=new Intent(MainActivity.getParentContext(), Genre.class);
+                intent.putExtra("position", position);
                 MainActivity.getParentContext().startActivity(intent);
             }
         });
