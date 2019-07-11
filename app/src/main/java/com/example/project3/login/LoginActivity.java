@@ -24,6 +24,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.project3.MainActivity;
+import com.example.project3.PostingVideo;
 import com.example.project3.R;
 
 import org.json.JSONException;
@@ -42,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences sf;
     SharedPreferences.Editor editor;
     boolean auto = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
             String id = sf.getString("Id", null);
             String pw = sf.getString("Pw", null);
             login(id, pw);
-            Toast.makeText(getApplicationContext(), "반가워요 "+id+"님!" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "반가워요 " + id + "님!", Toast.LENGTH_SHORT).show();
         } else {
             setContentView(R.layout.activity_login);
             loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory())
@@ -114,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
 
-            registerButton.setOnClickListener(new View.OnClickListener(){
+            registerButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
@@ -124,12 +126,12 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void login(String id, String password){
+    public void login(String id, String password) {
         String url = getApplicationContext().getString(R.string.login_uri);
-        try{
+        try {
             new MyLogin().execute(url, id, password).get();
             //new MyLogin().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url, id, password);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -140,16 +142,17 @@ public class LoginActivity extends AppCompatActivity {
 
     private class MyLogin extends AsyncTask<String, Void, String> {
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
+
         @Override
-        public void onPreExecute(){
-           loadingProgressBar.setVisibility(View.VISIBLE);
+        public void onPreExecute() {
+            loadingProgressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
         public String doInBackground(String... params) {
             String line;
             String page = "";
-            try{
+            try {
                 JSONObject json = new JSONObject();
                 json.accumulate("username", params[1]);
                 json.accumulate("password", params[2]);
@@ -171,20 +174,20 @@ public class LoginActivity extends AppCompatActivity {
 
                 int response = conn.getResponseCode();
                 Log.d("TTTTTTTTTT", "OK");
-                if(response == 200) {
+                if (response == 200) {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
                     while ((line = reader.readLine()) != null) {
                         page += line;
                     }
                 }
-                if(conn != null){
+                if (conn != null) {
                     conn.disconnect();
                 }
                 JSONObject loginresult = new JSONObject(page);
-                if(loginresult.getBoolean("success")){
+                if (loginresult.getBoolean("success")) {
                     Log.d("tokentokentoken", loginresult.getString("data"));
-                    editor.putString("Id",params[1]);
-                    editor.putString("Pw",params[2]);
+                    editor.putString("Id", params[1]);
+                    editor.putString("Pw", params[2]);
                     editor.apply();
                     return loginresult.getString("data");
                 }
@@ -199,16 +202,22 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onPostExecute(String result){
+        public void onPostExecute(String result) {
             // if token is null -> login fail
-            if(result != null){
-                editor.putString("Token",result);
+            if (result != null) {
+                editor.putString("Token", result);
                 editor.apply();
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                Toast.makeText(getApplicationContext(), "반가워요 "+sf.getString("Id",null)+"님!" , Toast.LENGTH_SHORT).show();
-                finish();
-            }
-            else{
+                if (sf.getString("youtube_url", null) != null) {
+                    startActivity(new Intent(LoginActivity.this, PostingVideo.class));
+                    loadingProgressBar.setVisibility(View.INVISIBLE);
+                    finish();
+                } else {
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    Toast.makeText(getApplicationContext(), "반가워요 " + sf.getString("Id", null) + "님!", Toast.LENGTH_SHORT).show();
+                    loadingProgressBar.setVisibility(View.INVISIBLE);
+                    finish();
+                }
+            } else {
                 showLoginFailed();
             }
             loadingProgressBar.setVisibility(View.INVISIBLE);

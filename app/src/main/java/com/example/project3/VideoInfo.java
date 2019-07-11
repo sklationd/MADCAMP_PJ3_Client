@@ -4,6 +4,7 @@ public class VideoInfo {
     public String username;
     public String videoId;
     public int genre;
+    public String title;
     public String description;
     public String createdAt;
 
@@ -26,6 +27,13 @@ public class VideoInfo {
     }
     public void setGenre(int genre) {
         this.genre = genre;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+    public void setTitle(String videoId) {
+        this.title = title;
     }
 
     public String getDescription() { return description; }

@@ -41,7 +41,7 @@ public class RetroClient {
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(baseUrl)
                 .build();
-        SharedPreferences sf = PreferenceManager.getDefaultSharedPreferences(Genre.getParentContext());
+        SharedPreferences sf = PreferenceManager.getDefaultSharedPreferences(context);
         Token = sf.getString("Token", null);
     }
 
@@ -86,7 +86,6 @@ public class RetroClient {
                     if (body.getData() != null) {
                         Log.d("body", body.getData().toString() + "");
                     }
-                    Log.d("데이터없음", "fsdgeafadfgdgdsgdfgs");
                     callback.onSuccess(response.code(), response.body());
                 } else {
                     callback.onFailure(response.code());

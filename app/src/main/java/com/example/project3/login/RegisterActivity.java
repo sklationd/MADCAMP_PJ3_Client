@@ -16,8 +16,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
 import com.example.project3.MainActivity;
+import com.example.project3.PostingVideo;
 import com.example.project3.R;
 
 import org.json.JSONException;
@@ -35,6 +35,7 @@ import java.util.Iterator;
 public class RegisterActivity extends AppCompatActivity {
     SharedPreferences sf;
     SharedPreferences.Editor editor;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,11 +67,11 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void register(String id, String password, String nickname, String password_confirm){
+    private void register(String id, String password, String nickname, String password_confirm) {
         String url = getApplicationContext().getString(R.string.register);
-        try{
+        try {
             new MyRegister().execute(url, id, nickname, password, password_confirm).get();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -78,8 +79,9 @@ public class RegisterActivity extends AppCompatActivity {
     private class MyRegister extends AsyncTask<String, Void, Boolean> {
         final ProgressBar loadingProgressBar = findViewById(R.id.loading_register);
         String Errormessage = null;
+
         @Override
-        public void onPreExecute(){
+        public void onPreExecute() {
             loadingProgressBar.setVisibility(View.VISIBLE);
         }
 
@@ -87,7 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
         public Boolean doInBackground(String... params) {
             String line;
             String page = "";
-            try{
+            try {
                 JSONObject json = new JSONObject();
                 json.accumulate("username", params[1]);
                 json.accumulate("nickname", params[2]);
@@ -110,23 +112,22 @@ public class RegisterActivity extends AppCompatActivity {
                 writer.close();
 
                 int response = conn.getResponseCode();
-                if(response == 200) {
+                if (response == 200) {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
                     while ((line = reader.readLine()) != null) {
                         page += line;
                     }
                 }
-                if(conn != null){
+                if (conn != null) {
                     conn.disconnect();
                 }
                 JSONObject loginresult = new JSONObject(page);
-                if(loginresult.getBoolean("success")){
-                    editor.putString("Id",params[1]);
-                    editor.putString("Pw",params[2]);
+                if (loginresult.getBoolean("success")) {
+                    editor.putString("Id", params[1]);
+                    editor.putString("Pw", params[2]);
                     editor.apply();
                     return true;
-                }
-                else {
+                } else {
                     JSONObject errors = loginresult.getJSONObject("errors");
                     Iterator<String> i = errors.keys();
                     String error_name = i.next();
@@ -144,20 +145,26 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onPostExecute(Boolean result){
+        public void onPostExecute(Boolean result) {
             // if token is null -> login fail
-            if(result){
+            if (result) {
                 String url = getApplicationContext().getString(R.string.login_uri);
                 try {
                     String Token = new MyLogin().execute(url, sf.getString("Id", null), sf.getString("Pw", null)).get();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                finish();
-            }
-            else{
-                Toast.makeText(getApplicationContext(), Errormessage , Toast.LENGTH_SHORT).show();
+                if (sf.getString("youtube_url", null) != null) {
+                    startActivity(new Intent(RegisterActivity.this, PostingVideo.class));
+                    loadingProgressBar.setVisibility(View.INVISIBLE);
+                    finish();
+                } else {
+                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                    loadingProgressBar.setVisibility(View.INVISIBLE);
+                    finish();
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), Errormessage, Toast.LENGTH_SHORT).show();
             }
             loadingProgressBar.setVisibility(View.INVISIBLE);
         }

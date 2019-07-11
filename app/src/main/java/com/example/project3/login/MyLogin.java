@@ -1,12 +1,14 @@
 package com.example.project3.login;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.project3.PostingVideo;
 import com.example.project3.SplashActivity;
 
 import org.json.JSONException;

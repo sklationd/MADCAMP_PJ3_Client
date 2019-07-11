@@ -1,6 +1,5 @@
 package com.example.project3;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
@@ -26,12 +26,12 @@ public class SplashActivity extends Activity {
     };
     private static final int MULTIPLE_PERMISSIONS = 101;
 
-    public static Context getContextOfApplication(){
+    public static Context getContextOfApplication() {
         return contextOfApplication;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         contextOfApplication = getApplicationContext();
         checkPermissions();
@@ -49,27 +49,41 @@ public class SplashActivity extends Activity {
         if (!permissionList.isEmpty()) {
             ActivityCompat.requestPermissions(this, permissionList.toArray(new String[permissionList.size()]), MULTIPLE_PERMISSIONS);
             return false;
-        }
-        else{
+        } else {
             initial_set();
         }
         return true;
     }
 
-    private void initial_set(){
+    private void initial_set() {
         SharedPreferences sf = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = sf.edit();
-        if(sf.getString("Id",null)!=null){
+        String youtube_url = null;
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            youtube_url = extras.getString(Intent.EXTRA_TEXT);
+            if (youtube_url != null) {
+                editor.putString("youtube_url", youtube_url);
+                editor.apply();
+            }
+        }
+        if (sf.getString("Id", null) != null) {
             String url = getApplicationContext().getString(R.string.login_uri);
-            String Id = sf.getString("Id",null);
-            String Pw = sf.getString("Pw",null);
+            String Id = sf.getString("Id", null);
+            String Pw = sf.getString("Pw", null);
             try {
                 new MyLogin().execute(url, Id, Pw).get();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            if (youtube_url != null) {
+                Log.d("asdfasdf", youtube_url);
+                startActivity(new Intent(this, PostingVideo.class));
+                finish();
+            } else {
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+            }
         } else {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
