@@ -8,8 +8,10 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -59,6 +61,15 @@ public class SplashActivity extends Activity {
     private void initial_set(){
         SharedPreferences sf = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = sf.edit();
+        String youtube_url = null;
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            youtube_url = extras.getString(Intent.EXTRA_TEXT);
+            if (youtube_url != null) {
+                editor.putString("url", youtube_url);
+                editor.apply();
+            }
+        }
         if(sf.getString("Id",null)!=null){
             String url = getApplicationContext().getString(R.string.login_uri);
             String Id = sf.getString("Id",null);
@@ -67,6 +78,11 @@ public class SplashActivity extends Activity {
                 new MyLogin().execute(url, Id, Pw).get();
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+            if(youtube_url!=null){
+                Log.d("asdfasdf", youtube_url);
+                //call sewon's activity
+                //finish();
             }
             startActivity(new Intent(this, MainActivity.class));
             finish();

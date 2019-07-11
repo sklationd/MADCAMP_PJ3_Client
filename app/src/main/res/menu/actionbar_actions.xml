@@ -5,5 +5,5 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
     android:id="@+id/action_logout"
     android:icon="@drawable/exit"
     android:title="로그아웃"
-    app:showAsAction="never"/>
+    app:showAsAction="ifRoom"/>
 </menu>

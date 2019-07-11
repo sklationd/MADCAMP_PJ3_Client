@@ -204,8 +204,14 @@ public class LoginActivity extends AppCompatActivity {
             if(result != null){
                 editor.putString("Token",result);
                 editor.apply();
+                if(sf.getString("youtube_url",null) != null){
+                    //start sewon's activity
+                    //loadingProgressBar.setVisibility(View.INVISIBLE);
+                    //finish();
+                }
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 Toast.makeText(getApplicationContext(), "반가워요 "+sf.getString("Id",null)+"님!" , Toast.LENGTH_SHORT).show();
+                loadingProgressBar.setVisibility(View.INVISIBLE);
                 finish();
             }
             else{
