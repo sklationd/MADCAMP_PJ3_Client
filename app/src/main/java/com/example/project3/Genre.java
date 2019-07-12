@@ -145,6 +145,5 @@ public class Genre extends AppCompatActivity {
         mRecyclerView.scrollToPosition(0);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
     }
 }
