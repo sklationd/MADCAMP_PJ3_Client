@@ -2,6 +2,7 @@ package com.example.project3;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +62,14 @@ public class RecyclerVideoAdapter extends RecyclerView
     public void onBindViewHolder(ViewHolder holder,final int position) {
         final VideoRecyclerItem item = mData.get(position) ;
         Glide.with(holder.thumbnail.getContext()).load("https://img.youtube.com/vi/"+item.getVideoId()+"/0.jpg").into(holder.thumbnail);
+        //Clickable imageview
+        holder.thumbnail.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v="+item.getVideoId()));
+                context.startActivity(webIntent);
+            }
+        });
         holder.title.setText(item.getTitle());
         holder.user_post.setText(item.getAuthor());
         holder.description.setText(item.getDescription());

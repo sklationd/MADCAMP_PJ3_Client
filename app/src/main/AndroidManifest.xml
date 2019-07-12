@@ -12,6 +12,7 @@
         <activity
             android:name=".login.LoginActivity"
             android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
             android:parentActivityName=".SplashActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -34,22 +35,27 @@
         </activity>
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Genre"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name=".PostingVideo"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name=".CommentActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|adjustPan"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name=".login.RegisterActivity"
+            android:screenOrientation="portrait"
             android:label="Sign up"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

@@ -138,6 +138,7 @@ public class Genre extends AppCompatActivity {
             @Override
             public void onSuccess(int code, Object receivedData) {
                 refreshLayout.setRefreshing(false);
+                mMyData.clear();
                 List<VideoInfo> data = ((ResponseInfo) receivedData).getData();
                 for (int i = 0; i < data.size(); i++) {
                     VideoRecyclerItem item = new VideoRecyclerItem();
