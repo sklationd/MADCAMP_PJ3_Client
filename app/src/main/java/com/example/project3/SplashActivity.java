@@ -68,19 +68,20 @@ public class SplashActivity extends Activity {
             }
         }
         if (sf.getString("Id", null) != null) {
-            String url = getApplicationContext().getString(R.string.login_uri);
-            String Id = sf.getString("Id", null);
-            String Pw = sf.getString("Pw", null);
-            try {
-                new MyLogin().execute(url, Id, Pw).get();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
             if (youtube_url != null) {
                 Log.d("asdfasdf", youtube_url);
                 startActivity(new Intent(this, PostingVideo.class));
                 finish();
             } else {
+                String url = getApplicationContext().getString(R.string.login_uri);
+                String Id = sf.getString("Id", null);
+                String Pw = sf.getString("Pw", null);
+                try {
+                    new MyLogin().execute(url, Id, Pw).get();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 startActivity(new Intent(this, MainActivity.class));
                 finish();
             }
