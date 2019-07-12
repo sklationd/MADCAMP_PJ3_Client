@@ -62,9 +62,9 @@ public class RetroClient {
     }
 
     public void addVideo(VideoInfo videoInfo, final RetroCallback callback) {
-        apiService.addVideo(videoInfo, Token).enqueue((new Callback<VideoInfo>() {
+        apiService.addVideo(videoInfo, Token).enqueue((new Callback<ResponseInfo_posting>() {
             @Override
-            public void onResponse(Call<VideoInfo> call, Response<VideoInfo> response) {
+            public void onResponse(Call<ResponseInfo_posting> call, Response<ResponseInfo_posting> response) {
                 if (response.isSuccessful()) {
                     callback.onSuccess(response.code(), response.body());
                 } else {
@@ -72,7 +72,7 @@ public class RetroClient {
                 }
             }
             @Override
-            public void onFailure(Call<VideoInfo> call, Throwable t) {
+            public void onFailure(Call<ResponseInfo_posting> call, Throwable t) {
                 callback.onError(t);
             }
         }));

@@ -14,7 +14,7 @@ public interface RetroBaseApiService {
 
     // CREATE VIDEO
     @POST("/api/video")
-    Call<VideoInfo> addVideo(@Body VideoInfo videoinfo, @Header("x-access-token") String token);
+    Call<ResponseInfo_posting> addVideo(@Body VideoInfo videoinfo, @Header("x-access-token") String token);
 
     // GET VIDEO BY GENRE
 

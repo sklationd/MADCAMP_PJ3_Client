@@ -20,7 +20,7 @@
         android:layout_gravity="center"
         android:text="Genre"/>
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/descript"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20sp"
@@ -30,13 +30,20 @@
         android:freezesText="true"
         android:text="description" />
     <EditText
-        android:id="@+id/addedname"
+        android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20sp"
         android:layout_marginBottom="20sp"
-        android:layout_below="@id/description"
+        android:layout_below="@id/descript"
         android:hint="your comment"/>
+    <Button
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_below="@id/description"
+        android:text="Save"/>
 
 
 
