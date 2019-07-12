@@ -18,6 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,9 @@ public class Genre extends AppCompatActivity {
     private RecyclerVideoAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private View view;
+    SwipeRefreshLayout refreshLayout;
+
+
     String youtubeurl;
     private static Context context;
     String Token;
@@ -52,14 +56,28 @@ public class Genre extends AppCompatActivity {
         SharedPreferences sf = PreferenceManager.getDefaultSharedPreferences(context);
         Token = sf.getString("Token", null);
         Username = sf.getString("Id", null);
-        //youtubeurl = sf.getString("youtube_url", "https://www.youtube.com/watch?v=ex0E3d2P6cY");
         setContentView(R.layout.genre);
         view = findViewById(R.id.genre_rootview);
+
+
+        Intent intent = getIntent();
+        final int position = (int) intent.getIntExtra("position", 0);
+        retroClient = RetroClient.getInstance(this).createBaseApi();
+
+        //pull to request
+        refreshLayout = findViewById(R.id.refresh_layout);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                initVideoByGenre(position);
+            }
+        });
+
+        //toolbar
         Toolbar toolbar = findViewById(R.id.genre_toolbar);
         setSupportActionBar(toolbar);
-        Intent intent = getIntent();
-        int position = (int) intent.getIntExtra("position", 0);
-        retroClient = RetroClient.getInstance(this).createBaseApi();
+
+        //init
         initVideoByGenre(position);
     }
 
@@ -108,15 +126,18 @@ public class Genre extends AppCompatActivity {
     }
 
     private void initVideoByGenre(int genre) {
+        refreshLayout.setRefreshing(true);
         retroClient.getVideoByGenre(genre, new RetroCallback() {
             @Override
             public void onError(Throwable t) {
+                refreshLayout.setRefreshing(false);
                 Log.d("DEBUGDEBUGDEBUGDEBUG", t.toString());
                 Log.e("error", "initVideoByGenre error");
             }
 
             @Override
             public void onSuccess(int code, Object receivedData) {
+                refreshLayout.setRefreshing(false);
                 List<VideoInfo> data = ((ResponseInfo) receivedData).getData();
                 for (int i = 0; i < data.size(); i++) {
                     VideoRecyclerItem item = new VideoRecyclerItem();
@@ -132,6 +153,7 @@ public class Genre extends AppCompatActivity {
 
             @Override
             public void onFailure(int code) {
+                refreshLayout.setRefreshing(false);
             }
         });
     }

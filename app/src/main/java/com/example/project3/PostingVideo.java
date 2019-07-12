@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -80,6 +81,7 @@ public class PostingVideo extends AppCompatActivity {
         Username = sf.getString("Id", null);
         VideoId = parsing(sf.getString("youtube_url", null));
         ImageView thumbnail = findViewById(R.id.post_thumbnail);
+
         Glide.with(context).load("https://img.youtube.com/vi/" + VideoId + "/0.jpg").into(thumbnail);
         youtube_url = sf.getString("youtube_url",null);
 
