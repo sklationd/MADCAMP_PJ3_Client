@@ -17,13 +17,20 @@ public interface RetroBaseApiService {
     Call<ResponseInfo_posting> addVideo(@Body VideoInfo videoinfo, @Header("x-access-token") String token);
 
     // GET VIDEO BY GENRE
-
     @GET("/api/video/{genre}")
     Call<ResponseInfo> getVideoByGenre(@Path("genre") int genre, @Header("x-access-token") String token);
 
     // GET ALL VIDEO
     @GET("/api/video")
     Call<List<VideoInfo>> getAllVideo();
+
+    //GET COMMENT BY GENRE AND VIDEOID
+    @GET("/api/comment/{genre}/{videoId}")
+    Call<ResponseInfo_comment> getCommentByGenreAndVideoId(@Path("genre") int genre, @Path("videoId") String videoId, @Header("x-access-token") String token);
+
+    // CREATE VIDEO
+    @POST("/api/comment/{username}")
+    Call<ResponseInfo_comment_posting> addComment(@Body Comment commentinfo, @Path("username") String username, @Header("x-access-token") String token);
 
 
 //    // DELETE CONTACT

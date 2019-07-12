@@ -115,6 +115,43 @@ public class RetroClient {
             }
         });
     }
+    public void getCommentByGenreAndVideoId(int genre, String videoId, final RetroCallback callback) {
+        apiService.getCommentByGenreAndVideoId(genre, videoId, Token).enqueue(new Callback<ResponseInfo_comment>() {
+            @Override
+            public void onResponse(Call<ResponseInfo_comment> call, Response<ResponseInfo_comment> response) {
+                if (response.isSuccessful()) {
+                    ResponseInfo_comment body = response.body();
+                    if (body.getData() != null) {
+                        Log.d("body", body.getData().toString() + "");
+                    }
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseInfo_comment> call, Throwable t) {
+                Log.d("dasfgdfsdfssdfssdf", "sdfsfkajshdlhioghaoierg");
+                callback.onError(t);
+            }
+        });
+    }
+    public void addComment(Comment commentInfo, String username, final RetroCallback callback) {
+        apiService.addComment(commentInfo, username, Token).enqueue((new Callback<ResponseInfo_comment_posting>() {
+            @Override
+            public void onResponse(Call<ResponseInfo_comment_posting> call, Response<ResponseInfo_comment_posting> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseInfo_comment_posting> call, Throwable t) {
+                callback.onError(t);
+            }
+        }));
+    }
 
 //    public void deleteContact(String id, String name, final RetroCallback callback) {
 //        apiService.deleteContact(id, name).enqueue(new Callback<ResponseBody>() {

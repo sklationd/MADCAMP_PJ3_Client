@@ -19,9 +19,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.project3.Video.RecyclerVideoAdapter;
-import com.example.project3.Video.VideoRecyclerItem;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +54,6 @@ public class Genre extends AppCompatActivity {
         Username = sf.getString("Id", null);
         //youtubeurl = sf.getString("youtube_url", "https://www.youtube.com/watch?v=ex0E3d2P6cY");
         setContentView(R.layout.genre);
-        context = getApplicationContext();
         view = findViewById(R.id.genre_rootview);
         Toolbar toolbar = findViewById(R.id.genre_toolbar);
         setSupportActionBar(toolbar);
@@ -125,6 +121,7 @@ public class Genre extends AppCompatActivity {
                 for (int i = 0; i < data.size(); i++) {
                     VideoRecyclerItem item = new VideoRecyclerItem();
                     item.setAuthor(data.get(i).getUsername());
+                    item.setGenre(data.get(i).getGenre());
                     item.setVideoId(data.get(i).getVideoId());
                     item.setTitle(data.get(i).getTitle());
                     item.setDescription(data.get(i).getDescription());
@@ -150,10 +147,4 @@ public class Genre extends AppCompatActivity {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
     }
-
-
-
-
-
-
 }
