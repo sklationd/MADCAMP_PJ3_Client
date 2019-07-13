@@ -13,7 +13,7 @@ import com.example.project3.R;
 import java.util.ArrayList;
 
 public class RecyclerCommentAdapter extends RecyclerView.Adapter<RecyclerCommentAdapter.ViewHolder> {
-    private ArrayList<Comment> mData = null;
+    public ArrayList<Comment> mData = null;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 

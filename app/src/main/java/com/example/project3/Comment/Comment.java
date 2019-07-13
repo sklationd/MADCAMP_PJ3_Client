@@ -4,12 +4,14 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Comment implements Serializable  {
+    private String _id;
     private String username;
     private int genre;
     private String videoId;
     private String comment;
     private Date createdAt;
 
+    public String get_id(){ return _id; }
     public String getUsername(){
         return username;
     }
@@ -21,6 +23,7 @@ public class Comment implements Serializable  {
     public Date getCreatedAt(){
         return createdAt;
     }
+    public void set_id(String _id){ this._id = _id; }
     public void setUsername(String author){
         this.username = author;
     }

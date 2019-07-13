@@ -9,6 +9,7 @@ import com.example.project3.Comment.Comment;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -155,6 +156,27 @@ public class RetroClient {
         }));
     }
 
+        public void deleteComment(String username, String id, final RetroCallback callback) {
+        apiService.deleteComment(username, id, Token).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    if (response.code()==204){
+                        callback.onSuccess(response.code(), response.body());
+                    }else{
+                        callback.onFailure(401);
+                    }
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
 //    public void deleteContact(String id, String name, final RetroCallback callback) {
 //        apiService.deleteContact(id, name).enqueue(new Callback<ResponseBody>() {
 //            @Override

@@ -4,8 +4,10 @@ import com.example.project3.Comment.Comment;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -34,6 +36,10 @@ public interface RetroBaseApiService {
     // CREATE VIDEO
     @POST("/api/comment/{username}")
     Call<ResponseInfo_comment_posting> addComment(@Body Comment commentinfo, @Path("username") String username, @Header("x-access-token") String token);
+
+    // DELETE CONTACT
+    @DELETE("/api/comment/{username}/{id}")
+    Call<ResponseBody> deleteComment(@Path("username") String username, @Path("id") String id, @Header("x-access-token") String token);
 
 
 //    // DELETE CONTACT
