@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".login.LoginActivity"
+            android:name=".Login.LoginActivity"
             android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
             android:parentActivityName=".SplashActivity">
@@ -34,11 +34,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Main.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".Genre"
+            android:name=".Genre.Genre"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
@@ -48,13 +48,13 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".CommentActivity"
-            android:screenOrientation="portrait"
+            android:name=".Comment.CommentActivity"
             android:windowSoftInputMode="adjustResize|adjustPan"
-            android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.SlidrActivityTheme">
         </activity>
+        <!--android:screenOrientation="portrait"-->
         <activity
-            android:name=".login.RegisterActivity"
+            android:name=".Login.RegisterActivity"
             android:screenOrientation="portrait"
             android:label="Sign up"
             android:theme="@style/AppTheme.NoActionBar"></activity>
