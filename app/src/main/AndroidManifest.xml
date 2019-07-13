@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.project3">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,8 +13,8 @@
         <activity
             android:name=".Login.LoginActivity"
             android:label="@string/title_activity_login"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".SplashActivity">
+            android:parentActivityName=".SplashActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".SplashActivity" />
@@ -30,33 +31,38 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <data android:host="www.youtube.com" android:mimeType="text/*" />
+                <data
+                    android:host="www.youtube.com"
+                    android:mimeType="text/*" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Main.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!--<activity-->
+            <!--android:name=".Genre.Genre"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/AppTheme.NoActionBar"></activity>-->
         <activity
             android:name=".Genre.Genre"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.SlidrActivityTheme"></activity>
+
         <activity
             android:name=".PostingVideo"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
         <activity
             android:name=".Comment.CommentActivity"
-            android:windowSoftInputMode="adjustResize|adjustPan"
-        android:theme="@style/AppTheme.SlidrActivityTheme">
-        </activity>
+            android:theme="@style/AppTheme.SlidrActivityTheme"
+            android:windowSoftInputMode="adjustResize|adjustPan"></activity>
+
         <!--android:screenOrientation="portrait"-->
         <activity
             android:name=".Login.RegisterActivity"
-            android:screenOrientation="portrait"
             android:label="Sign up"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

@@ -82,11 +82,11 @@ public class PostingVideo extends AppCompatActivity {
         ImageView thumbnail = findViewById(R.id.post_thumbnail);
 
         Glide.with(context).load("https://img.youtube.com/vi/" + VideoId + "/0.jpg").into(thumbnail);
-        youtube_url = sf.getString("youtube_url",null);
+        youtube_url = sf.getString("youtube_url", null);
 
         try {
             Title = new getTitle().execute(VideoId).get();
-            if(Title != null){
+            if (Title != null) {
                 Log.d("DEBUG", Title);
             }
         } catch (ExecutionException e) {
@@ -103,7 +103,7 @@ public class PostingVideo extends AppCompatActivity {
                 dialog.setTitle("Select Genre").setSingleChoiceItems(genres, selectedIndex, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Log.d("INDEX",Integer.toString(i));
+                        Log.d("INDEX", Integer.toString(i));
                         selectedIndex = i;
                         user_select = true;
                     }
@@ -116,6 +116,15 @@ public class PostingVideo extends AppCompatActivity {
                 }).create().show();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (sf.getString("youtube_url", null) != null) {
+            editor.remove("youtube_url");
+            editor.apply();
+        }
     }
 
     @Override
@@ -134,8 +143,8 @@ public class PostingVideo extends AppCompatActivity {
                 if (!user_select) {
                     Toast.makeText(PostingVideo.this, "장르를 선택해주세요", Toast.LENGTH_SHORT).show();
                 } else {
-                    if(Title == null){
-                        Log.d("ERROR","Failed to get title");
+                    if (Title == null) {
+                        Log.d("ERROR", "Failed to get title");
                     }
                     postVideo(Username, Title, VideoId, selectedIndex, description);
                 }

@@ -17,6 +17,7 @@ public class MainAdapter extends PagerAdapter {
     private int[] images = {R.drawable.one, R.drawable.two, R.drawable.three, R.drawable.four, R.drawable.five, R.drawable.six};
     private LayoutInflater inflater;
     private Context mcontext = null;
+    private int length = images.length;
     public MainAdapter(){
 
     }
@@ -25,7 +26,7 @@ public class MainAdapter extends PagerAdapter {
     }
     @Override
     public int getCount() {
-        return images.length;
+        return length;
     }
     @Override
     public boolean isViewFromObject(View view, Object object) {
@@ -33,6 +34,7 @@ public class MainAdapter extends PagerAdapter {
     }
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
+        Log.d("position",Integer.toString(position));
         inflater = (LayoutInflater)mcontext.getSystemService
                 (Context.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.slider, container, false);

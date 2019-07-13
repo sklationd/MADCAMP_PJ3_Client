@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
                                 });
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
-
             default:
                 return super.onOptionsItemSelected(item);
         }

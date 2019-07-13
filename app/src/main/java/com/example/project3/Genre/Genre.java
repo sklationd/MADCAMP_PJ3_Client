@@ -26,6 +26,8 @@ import com.example.project3.Networking.RetroClient;
 import com.example.project3.Networking.VideoInfo;
 import com.example.project3.R;
 import com.example.project3.SplashActivity;
+import com.r0adkll.slidr.Slidr;
+import com.r0adkll.slidr.model.SlidrInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +51,8 @@ public class Genre extends AppCompatActivity {
 
     RetroClient retroClient;
 
+    private SlidrInterface slidr;
+
     public static Context getParentContext() {
         return context;
     }
@@ -66,6 +70,8 @@ public class Genre extends AppCompatActivity {
         setContentView(R.layout.genre);
         view = findViewById(R.id.genre_rootview);
 
+        slidr = Slidr.attach(this);
+        slidr.unlock();
 
         Intent intent = getIntent();
         final int position = (int) intent.getIntExtra("position", 0);
