@@ -54,6 +54,7 @@ public class CommentActivity extends AppCompatActivity {
     SwipeRefreshLayout refreshLayout;
     String deletedcomment;
     String deletedauthor;
+    int position;
 
     RetroClient retroClient;
 
@@ -85,8 +86,8 @@ public class CommentActivity extends AppCompatActivity {
 
         retroClient = RetroClient.getInstance(this).createBaseApi();
         initCommentByGenreAndVideoId(genre, videoid);
-        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         savecomment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,7 +151,12 @@ public class CommentActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.scrollToPosition(0);
+        if (mMyData.size()==0){
+            position=0;
+        }else{
+            position=mMyData.size()-1;
+        }
+        mRecyclerView.scrollToPosition(position);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         swipeController = new SwipeController(new SwipeControllerActions() {
@@ -199,7 +205,6 @@ public class CommentActivity extends AppCompatActivity {
     }
 
     private void postComment(String videoId, final int genre, final String Description) {
-        retroClient = RetroClient.getInstance(this).createBaseApi();
         Comment commentinfo = new Comment();
         commentinfo.setVideoId(videoId);
         commentinfo.setGenre(genre);
@@ -225,16 +230,5 @@ public class CommentActivity extends AppCompatActivity {
 
     }
 
-    private void AddComment(int genre, String videoid, String description) {
-        mMyData.clear();
-        initCommentByGenreAndVideoId(genre, videoid);
-        Comment item = new Comment();
-        item.setUsername(Username);
-        item.setGenre(genre);
-        item.setVideoId(videoid);
-        item.setComment(description);
-        //mMyData.add(item);
-        //mAdapter.notifyItemInserted(mAdapter.getItemCount());
-    }
 
 }

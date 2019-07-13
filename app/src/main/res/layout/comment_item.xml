@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="10dp"
-    android:layout_marginTop="10dp"
     android:layout_marginRight="10dp"
-    android:layout_marginBottom="10dp"
+    android:layout_marginTop="7dp"
+    android:layout_marginBottom="3dp"
     android:background="@drawable/item_background">
 
     <LinearLayout
@@ -20,18 +20,19 @@
             android:id="@+id/author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="3dp"
+            android:textStyle="bold"/>
         <TextView
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/author"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="3dp" />
         <TextView
             android:id="@+id/time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/content"
-            android:layout_marginBottom="10dp" />
+            android:textSize="10dp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

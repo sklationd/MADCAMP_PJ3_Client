@@ -31,7 +31,7 @@ public class RecyclerVideoAdapter extends RecyclerView
         ImageView thumbnail;
         TextView title;
         TextView description;
-        Button comment;
+        TextView comment;
 
         ViewHolder(View itemView) {
             super(itemView) ;
