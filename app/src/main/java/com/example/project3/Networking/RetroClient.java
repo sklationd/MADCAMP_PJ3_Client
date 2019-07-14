@@ -118,6 +118,27 @@ public class RetroClient {
             }
         });
     }
+    public void deleteVideo(String username, int genre, String videoId, final RetroCallback callback) {
+        apiService.deleteVideo(username, genre, videoId, Token).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    if (response.code()==204){
+                        callback.onSuccess(response.code(), response.body());
+                    }else{
+                        callback.onFailure(401);
+                    }
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
     public void getCommentByGenreAndVideoId(int genre, String videoId, final RetroCallback callback) {
         apiService.getCommentByGenreAndVideoId(genre, videoId, Token).enqueue(new Callback<ResponseInfo_comment>() {
             @Override
@@ -156,7 +177,7 @@ public class RetroClient {
         }));
     }
 
-        public void deleteComment(String username, String id, final RetroCallback callback) {
+    public void deleteComment(String username, String id, final RetroCallback callback) {
         apiService.deleteComment(username, id, Token).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

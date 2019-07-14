@@ -97,6 +97,20 @@ public class CommentActivity extends AppCompatActivity {
                 if (comment.matches("")) {
                     Toast.makeText(context, "댓글을 입력하세요", Toast.LENGTH_SHORT).show();
                 } else {
+                    if (comment.contains("\n")){
+                        String temp[] = comment.split("\n");
+                        comment="";
+                        int pos = temp.length;
+                        while (temp[pos-1].matches("")){
+                            pos--;
+                        }
+                        for (int i=0; i<pos;i++){
+                            comment += temp[i];
+                            if (i != (pos-1)){
+                                comment += "\n";
+                            }
+                        }
+                    }
                     postComment(videoid, genre, comment);
                     InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(yourcomment.getWindowToken(), 0);
@@ -160,11 +174,6 @@ public class CommentActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         swipeController = new SwipeController(new SwipeControllerActions() {
-            @Override
-            public void onSwiped(final int position){
-
-            }
-
             @Override
             public void onRightClicked(final int position) {
                 //RetroClient retroClient = RetroClient.getInstance(this).createBaseApi();

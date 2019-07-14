@@ -33,11 +33,15 @@ public interface RetroBaseApiService {
     @GET("/api/comment/{genre}/{videoId}")
     Call<ResponseInfo_comment> getCommentByGenreAndVideoId(@Path("genre") int genre, @Path("videoId") String videoId, @Header("x-access-token") String token);
 
-    // CREATE VIDEO
+    // DELETE VIDEO
+    @DELETE("/api/video/{username}/{genre}/{videoId}")
+    Call<ResponseBody> deleteVideo(@Path("username") String username, @Path("genre") int genre, @Path("videoId") String videoId, @Header("x-access-token") String token);
+
+    // CREATE COMMENT
     @POST("/api/comment/{username}")
     Call<ResponseInfo_comment_posting> addComment(@Body Comment commentinfo, @Path("username") String username, @Header("x-access-token") String token);
 
-    // DELETE CONTACT
+    // DELETE COMMENT
     @DELETE("/api/comment/{username}/{id}")
     Call<ResponseBody> deleteComment(@Path("username") String username, @Path("id") String id, @Header("x-access-token") String token);
 

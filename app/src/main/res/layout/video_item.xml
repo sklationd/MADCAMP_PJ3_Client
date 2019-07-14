@@ -26,18 +26,25 @@
             android:id="@+id/layout">
             <TextView
                 android:id="@+id/user_post"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:text="name"
+                android:fontFamily="@font/agencyb"
                 android:textSize="20dp"
                 android:textStyle="bold"
-                android:layout_marginLeft="2dp"
+                android:layout_marginLeft="3dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="2dp" />
-            <Button
-                android:layout_width="5dp"
-                android:layout_height="5dp"
-                android:layout_gravity="right"
-                android:text="ㅐ"/>
+            <TextView
+                android:id="@+id/delete"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="x"/>
 
 
         </LinearLayout>
@@ -55,21 +62,27 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/thumbnail"
             android:layout_marginLeft="3dp"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/nsrr"
+            android:textSize="12dp"/>
 
         <TextView
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
-            android:layout_below="@+id/title"/>
+            android:layout_marginBottom="3dp"
+            android:layout_below="@+id/title"
+            android:fontFamily="@font/nsrb"
+            android:textSize="15dp"/>
 
         <TextView
             android:id="@+id/comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="COMMENT"
-            android:textSize="15dp"
+            android:text="View all comments"
+            android:fontFamily="@font/AGENCYR"
+            android:textSize="17dp"
             android:textStyle="bold"
             android:layout_marginLeft="3dp"
             android:layout_marginBottom="5dp" />
