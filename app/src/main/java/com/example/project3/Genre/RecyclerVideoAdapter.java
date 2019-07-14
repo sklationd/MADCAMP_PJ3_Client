@@ -72,7 +72,7 @@ public class RecyclerVideoAdapter extends RecyclerView.Adapter<RecyclerVideoAdap
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final VideoRecyclerItem item = mData.get(position) ;
-        Glide.with(holder.thumbnail.getContext()).load("https://img.youtube.com/vi/"+item.getVideoId()+"/maxresdefault.jpg").into(holder.thumbnail);
+        Glide.with(holder.thumbnail.getContext()).load("https://img.youtube.com/vi/"+item.getVideoId()+"/0.jpg").into(holder.thumbnail);
         //Clickable imageview
         holder.thumbnail.setOnClickListener(new View.OnClickListener(){
             @Override
