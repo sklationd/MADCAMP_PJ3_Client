@@ -86,7 +86,8 @@ public class CommentActivity extends AppCompatActivity {
 
         retroClient = RetroClient.getInstance(this).createBaseApi();
         initCommentByGenreAndVideoId(genre, videoid);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_UNSPECIFIED);
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         savecomment.setOnClickListener(new View.OnClickListener() {
@@ -99,14 +100,21 @@ public class CommentActivity extends AppCompatActivity {
                 } else {
                     postComment(videoid, genre, comment);
                     InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(yourcomment.getWindowToken(), 0);
                     yourcomment.setText(null);
                 }
             }
         });
 
         slidr = Slidr.attach(this);
+        unlock_slidr();
+    }
+
+    public void unlock_slidr(){
         slidr.unlock();
+    }
+
+    public void lock_slidr(){
+        slidr.lock();
     }
 
     private void initCommentByGenreAndVideoId(int genre, String videoid) {
@@ -146,22 +154,33 @@ public class CommentActivity extends AppCompatActivity {
     }
 
     private void initRecyclerView() {
-        mAdapter = new RecyclerCommentAdapter(mMyData);
+        //not initial
         mRecyclerView = (RecyclerView) view.findViewById(R.id.comment_recycler);
+        if(swipeController != null){
+            if (mMyData.size() == 0) {
+                position = 0;
+            } else {
+                position = mMyData.size() - 1;
+            }
+            mRecyclerView.scrollToPosition(position);
+            return;
+        }
+
+        mAdapter = new RecyclerCommentAdapter(mMyData);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        if (mMyData.size()==0){
-            position=0;
-        }else{
-            position=mMyData.size()-1;
+        if (mMyData.size() == 0) {
+            position = 0;
+        } else {
+            position = mMyData.size() - 1;
         }
         mRecyclerView.scrollToPosition(position);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         swipeController = new SwipeController(new SwipeControllerActions() {
             @Override
-            public void onSwiped(final int position){
+            public void onSwiped(final int position) {
 
             }
 
@@ -193,7 +212,7 @@ public class CommentActivity extends AppCompatActivity {
                     }
                 });
             }
-        });
+        }, slidr);
         ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
         itemTouchhelper.attachToRecyclerView(mRecyclerView);
         mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
@@ -219,7 +238,6 @@ public class CommentActivity extends AppCompatActivity {
             public void onSuccess(int code, Object receivedData) {
                 Comment data = ((ResponseInfo_comment_posting) receivedData).getData();
                 Log.d("aa", data.getUsername());
-                mMyData.clear();
                 initCommentByGenreAndVideoId(genre, videoid);
             }
 
