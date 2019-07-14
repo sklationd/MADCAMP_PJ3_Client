@@ -48,7 +48,7 @@
                 android:layout_marginRight="20sp"
                 android:layout_marginBottom="20dp"
                 android:text="Genre"
-                android:background="@color/colorAccent"/>
+                android:background="@drawable/button_round"/>
 
             <TextView
                 android:id="@+id/descript"
