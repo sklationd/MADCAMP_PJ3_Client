@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.viewpager.widget.PagerAdapter;
 
@@ -15,6 +16,7 @@ import com.example.project3.R;
 
 public class MainAdapter extends PagerAdapter {
     private int[] images = {R.drawable.one, R.drawable.two, R.drawable.three, R.drawable.four, R.drawable.five, R.drawable.six};
+    private String[] genres = {"HIPHOP", "POPPIN", "URBAN", "GIRLS", "WAACKING", "LOCKING"};
     private LayoutInflater inflater;
     private Context mcontext = null;
     private int length = images.length;
@@ -39,6 +41,7 @@ public class MainAdapter extends PagerAdapter {
                 (Context.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(R.layout.slider, container, false);
         ImageView imageView = (ImageView)v.findViewById(R.id.circleimage);
+        TextView textView = (TextView)v.findViewById(R.id.genre_description);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,6 +52,7 @@ public class MainAdapter extends PagerAdapter {
             }
         });
         imageView.setImageResource(images[position]);
+        textView.setText(genres[position]);
         container.addView(v);
         return v;
     }

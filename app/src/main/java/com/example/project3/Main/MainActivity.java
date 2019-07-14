@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        //"HIPHOP", "POPPIN", "URBAN", "GIRLS", "WAACKING", "LOCKING"
         genrelist.add(R.drawable.one);
         genrelist.add(R.drawable.two);
         genrelist.add(R.drawable.three);
