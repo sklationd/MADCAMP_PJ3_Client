@@ -36,27 +36,34 @@
         <activity
             android:name=".Main.MainActivity"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Genre.Genre"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme.SlidrActivityTheme">
+
+        </activity>
+
+        <activity
+            android:name=".Comment.CommentActivity"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/AppTheme.SlidrActivityTheme">
         </activity>
+
         <activity
             android:name=".PostingVideo"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity
-            android:name=".Comment.CommentActivity"
-        android:theme="@style/AppTheme.SlidrActivityTheme">
-        </activity>
-        <!--android:windowSoftInputMode="adjustResize|adjustPan"-->
-        <!--android:screenOrientation="portrait"-->
+
         <activity
             android:name=".Login.RegisterActivity"
             android:screenOrientation="portrait"
             android:label="Sign up"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

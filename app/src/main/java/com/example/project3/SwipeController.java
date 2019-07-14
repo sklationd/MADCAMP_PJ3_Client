@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.ItemTouchHelper.Callback;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.r0adkll.slidr.model.SlidrInterface;
+
 import static androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_SWIPE;
 enum ButtonsState {
     GONE,
@@ -20,14 +22,17 @@ enum ButtonsState {
 }
 public class SwipeController extends Callback {
     private boolean swipeBack = false;
+    private boolean swipeFront = false;
     private ButtonsState buttonShowedState = ButtonsState.GONE;
     private RectF buttonInstance = null;
     private RecyclerView.ViewHolder currentItemViewHolder = null;
     private SwipeControllerActions buttonsActions = null;
     private static final float buttonWidth = 300;
+    private SlidrInterface slidr;
 
-    public SwipeController(SwipeControllerActions buttonsActions) {
+    public SwipeController(SwipeControllerActions buttonsActions, SlidrInterface slidr) {
         this.buttonsActions = buttonsActions;
+        this.slidr = slidr;
     }
 
     @Override
@@ -77,11 +82,14 @@ public class SwipeController extends Callback {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 swipeBack = event.getAction() == MotionEvent.ACTION_CANCEL || event.getAction() == MotionEvent.ACTION_UP;
+//                swipeFront = event.getAction() == MotionEvent.ACTION_CANCEL || event.getAction() == MotionEvent.ACTION_DOWN;
+//                Log.d("B",Boolean.toString(swipeBack));
+//                Log.d("F",Boolean.toString(swipeFront));
+
                 if (swipeBack) {
                     if (dX < -buttonWidth) buttonShowedState = ButtonsState.RIGHT_VISIBLE;
-                    else if (dX > buttonWidth) buttonShowedState  = ButtonsState.LEFT_VISIBLE;
-
                     if (buttonShowedState != ButtonsState.GONE) {
+//                        slidr.lock();
                         setTouchDownListener(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
                         setItemsClickable(recyclerView, false);
                     }

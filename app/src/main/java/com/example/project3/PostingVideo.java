@@ -110,6 +110,7 @@ public class PostingVideo extends AppCompatActivity {
                 }).setPositiveButton("save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        user_select = true;
                         Toast.makeText(PostingVideo.this, genres[selectedIndex], Toast.LENGTH_SHORT).show();
                         selectGenre.setText(genres[selectedIndex]);
                     }
