@@ -49,49 +49,7 @@ public class RecyclerVideoAdapter extends RecyclerView.Adapter<RecyclerVideoAdap
             title = itemView.findViewById(R.id.title);
             description = itemView.findViewById(R.id.description);
             comment=itemView.findViewById(R.id.comment);
-            //itemView.setOnCreateContextMenuListener(this);
         }
-
-//        @Override
-//        public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-//            MenuItem delete = contextMenu.add(Menu.NONE, 1001, 1, "delete");
-//            delete.setOnMenuItemClickListener(onEditMenu);
-//        }
-//
-//        private final MenuItem.OnMenuItemClickListener onEditMenu = new MenuItem.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem menuItem) {
-//                switch (menuItem.getItemId()){
-//                    case 1001:
-//                        int position = getAdapterPosition();
-//                        String deletedauthor = mData.get(position).getAuthor();
-//                        int deletedgenre = mData.get(position).getGenre();
-//                        String deletedvideoid = mData.get(position).getVideoId();
-//                        retroClient.deleteVideo(deletedauthor, deletedgenre, deletedvideoid, new RetroCallback() {
-//                            @Override
-//                            public void onError(Throwable t) {
-//                                Log.e("error", "deletecommenterror");
-//                            }
-//                            @Override
-//                            public void onSuccess(int code, Object receivedData) {
-//                                // 아답타에게 알린다
-//                                mData.remove(getAdapterPosition());
-//                                notifyItemRemoved(getAdapterPosition());
-//                                notifyItemRangeChanged(getAdapterPosition(),mData.size());
-//                            }
-//                            @Override
-//                            public void onFailure(int code) {
-//                                Log.e("error", String.valueOf(code));
-//                                if (code == 401) {
-//                                    Toast.makeText(context, "권한이 없습니다", Toast.LENGTH_SHORT).show();
-//                                }
-//                            }
-//                        });
-//                        break;
-//                }
-//                return true;
-//            }
-//        };
     }
 
     // 생성자에서 데이터 리스트 객체를 전달받음.
@@ -114,7 +72,7 @@ public class RecyclerVideoAdapter extends RecyclerView.Adapter<RecyclerVideoAdap
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final VideoRecyclerItem item = mData.get(position) ;
-        Glide.with(holder.thumbnail.getContext()).load("https://img.youtube.com/vi/"+item.getVideoId()+"/0.jpg").into(holder.thumbnail);
+        Glide.with(holder.thumbnail.getContext()).load("https://img.youtube.com/vi/"+item.getVideoId()+"/maxresdefault.jpg").into(holder.thumbnail);
         //Clickable imageview
         holder.thumbnail.setOnClickListener(new View.OnClickListener(){
             @Override

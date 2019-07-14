@@ -56,10 +56,6 @@ public class Genre extends AppCompatActivity {
     public static Context getParentContext() {
         return context;
     }
-
-    //private String[] images = {"HIPHOP", "POPPIN", "URBAN", "GIRLS", "WAACKING", "LOCKING"};
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -149,8 +145,7 @@ public class Genre extends AppCompatActivity {
             @Override
             public void onError(Throwable t) {
                 refreshLayout.setRefreshing(false);
-                Log.d("DEBUGDEBUGDEBUGDEBUG", t.toString());
-                Log.e("error", "initVideoByGenre error");
+                Log.d("DEBUG", t.toString());
             }
 
             @Override

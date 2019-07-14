@@ -81,7 +81,7 @@ public class PostingVideo extends AppCompatActivity {
         VideoId = parsing(sf.getString("youtube_url", null));
         ImageView thumbnail = findViewById(R.id.post_thumbnail);
 
-        Glide.with(context).load("https://img.youtube.com/vi/" + VideoId + "/0.jpg").into(thumbnail);
+        Glide.with(context).load("https://img.youtube.com/vi/" + VideoId + "/maxresdefault.jpg").into(thumbnail);
         youtube_url = sf.getString("youtube_url", null);
 
         try {
