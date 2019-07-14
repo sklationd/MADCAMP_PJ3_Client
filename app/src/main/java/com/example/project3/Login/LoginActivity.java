@@ -1,6 +1,7 @@
 package com.example.project3.Login;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -43,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences sf;
     SharedPreferences.Editor editor;
     boolean auto = false;
-
+    final Context context = this;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +106,8 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                     if (actionId == EditorInfo.IME_ACTION_DONE) {
+                        InputMethodManager keyboard = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                        keyboard.hideSoftInputFromWindow(passwordEditText.getWindowToken(), 0);
                         login(usernameEditText.getText().toString(), passwordEditText.getText().toString());
                     }
                     return false;
@@ -129,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
     public void login(String id, String password) {
         String url = getApplicationContext().getString(R.string.login_uri);
         try {
-            new MyLogin().execute(url, id, password).get();
+            new MyLogin().execute(url, id, password);
             //new MyLogin().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url, id, password);
         } catch (Exception e) {
             e.printStackTrace();

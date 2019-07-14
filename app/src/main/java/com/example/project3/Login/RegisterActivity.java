@@ -70,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void register(String id, String password, String nickname, String password_confirm) {
         String url = getApplicationContext().getString(R.string.register);
         try {
-            new MyRegister().execute(url, id, nickname, password, password_confirm).get();
+            new MyRegister().execute(url, id, nickname, password, password_confirm);
         } catch (Exception e) {
             e.printStackTrace();
         }

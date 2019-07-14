@@ -12,6 +12,7 @@
         <activity
             android:name=".Login.LoginActivity"
             android:label="@string/title_activity_login"
+            android:windowSoftInputMode="adjustUnspecified"
             android:screenOrientation="portrait"
             android:parentActivityName=".SplashActivity">
             <meta-data
@@ -62,6 +63,7 @@
             android:name=".Login.RegisterActivity"
             android:screenOrientation="portrait"
             android:label="Sign up"
+            android:windowSoftInputMode="adjustUnspecified"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
