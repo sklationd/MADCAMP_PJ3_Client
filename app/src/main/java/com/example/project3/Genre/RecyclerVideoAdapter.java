@@ -34,7 +34,7 @@ public class RecyclerVideoAdapter extends RecyclerView.Adapter<RecyclerVideoAdap
 //implements View.OnCreateContextMenuListener
         View mView;
         TextView user_post;
-        TextView delete;
+        ImageView delete;
         ImageView thumbnail;
         TextView title;
         TextView description;
