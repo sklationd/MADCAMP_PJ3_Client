@@ -20,4 +20,7 @@
     <!--<string name="register">"http://13.125.213.243:8080/api/users"</string>-->
     <string name="login_uri">"http://143.248.36.26:8080/api/auth/login"</string>
     <string name="register">"http://143.248.36.26:8080/api/users"</string>
+
+    <string name="default_notification_channel_id">Channel ID</string>
+    <string name="default_notification_channel_name" translatable="true">Test</string>
 </resources>
