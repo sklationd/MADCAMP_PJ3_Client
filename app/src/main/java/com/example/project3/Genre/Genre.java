@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -90,6 +89,8 @@ public class Genre extends AppCompatActivity {
 
         //init
         initVideoByGenre(position);
+
+
     }
 
     @Override
@@ -162,6 +163,7 @@ public class Genre extends AppCompatActivity {
                     item.setVideoId(data.get(i).getVideoId());
                     item.setTitle(data.get(i).getTitle());
                     item.setDescription(data.get(i).getDescription());
+                    item.setCreatedAt(data.get(i).getCreatedAt());
                     mMyData.add(item);
                 }
                 initRecyclerView();

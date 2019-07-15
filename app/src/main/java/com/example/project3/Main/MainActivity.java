@@ -5,12 +5,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,9 +32,12 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    int GLOBAL_TOUCH_POSITION_X = 0;
+    int GLOBAL_TOUCH_CURRENT_POSITION_X = 0;
     private ArrayList<Integer> genrelist =new ArrayList<Integer>();
     MainAdapter adapter;
     ViewPager viewPager;
+    View view;
     public static Context context;
 
     public static Context getParentContext(){
@@ -43,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         context = getApplicationContext();
         setContentView(R.layout.activity_main);
+        view = findViewById(R.id.main_rootview);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -53,6 +61,14 @@ public class MainActivity extends AppCompatActivity {
         genrelist.add(R.drawable.four);
         genrelist.add(R.drawable.five);
         genrelist.add(R.drawable.six);
+
+        view.setOnTouchListener(new View.OnTouchListener(){
+                @Override
+                public boolean onTouch(View v, MotionEvent m) {
+                    handleTouch(m);
+                    return true;
+                }
+        });
 
         viewPager= (ViewPager) findViewById(R.id.viewpager);
         adapter = new MainAdapter(this);
@@ -73,6 +89,59 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //                });
         FirebaseMessaging.getInstance().subscribeToTopic("all");
+    }
+    void handleTouch(MotionEvent m){
+        //Number of touches
+        int pointerCount = m.getPointerCount();
+        if(pointerCount == 2){
+            int action = m.getActionMasked();
+            int actionIndex = m.getActionIndex();
+            String actionString;
+            switch (action)
+            {
+                case MotionEvent.ACTION_DOWN:
+                    GLOBAL_TOUCH_POSITION_X = (int) m.getX(1);
+                    actionString = "DOWN"+" current "+GLOBAL_TOUCH_CURRENT_POSITION_X+" prev "+GLOBAL_TOUCH_POSITION_X;
+                    Toast.makeText(context, actionString, Toast.LENGTH_SHORT).show();
+                    Log.d("손가락", "ACTION_DOWN");
+                    break;
+                case MotionEvent.ACTION_POINTER_UP:
+                    Log.d("차이포인터업", String.valueOf(GLOBAL_TOUCH_CURRENT_POSITION_X-GLOBAL_TOUCH_POSITION_X));
+                    if (GLOBAL_TOUCH_CURRENT_POSITION_X-GLOBAL_TOUCH_POSITION_X>30){
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse( "http://youtu.be/"));
+                        startActivity(intent);
+                        GLOBAL_TOUCH_POSITION_X = 0;
+                        GLOBAL_TOUCH_CURRENT_POSITION_X = 0;
+                    }
+                    GLOBAL_TOUCH_POSITION_X = 0;
+                    GLOBAL_TOUCH_CURRENT_POSITION_X = 0;
+                    break;
+                case MotionEvent.ACTION_UP:
+                    actionString = "UP"+" current "+GLOBAL_TOUCH_CURRENT_POSITION_X+" prev "+GLOBAL_TOUCH_POSITION_X;
+                    Log.d("손가락", "ACTION_UP");
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    GLOBAL_TOUCH_CURRENT_POSITION_X = (int) m.getX(1);
+                    int diff = GLOBAL_TOUCH_POSITION_X-GLOBAL_TOUCH_CURRENT_POSITION_X;
+//                    actionString = "Diff "+diff+" current "+GLOBAL_TOUCH_CURRENT_POSITION_X+" prev "+GLOBAL_TOUCH_POSITION_X;
+//                    Toast.makeText(context, actionString, Toast.LENGTH_SHORT).show();
+                    Log.d("손가락", "ACTION_MOVE");
+                    break;
+                case MotionEvent.ACTION_POINTER_DOWN:
+                    GLOBAL_TOUCH_POSITION_X = (int) m.getX(1);
+//                    actionString = "DOWN"+" current "+GLOBAL_TOUCH_CURRENT_POSITION_X+" prev "+GLOBAL_TOUCH_POSITION_X;
+//                    Toast.makeText(context, actionString, Toast.LENGTH_SHORT).show();
+                    Log.d("손가락2", "ACTION_POINTER_DOWN");
+                    break;
+                default:
+                    actionString = "";
+            }
+            pointerCount = 0;
+        }
+        else {
+            GLOBAL_TOUCH_POSITION_X = 0;
+            GLOBAL_TOUCH_CURRENT_POSITION_X = 0;
+        }
     }
 
     @Override
