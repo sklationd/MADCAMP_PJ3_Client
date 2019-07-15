@@ -15,7 +15,8 @@ import com.example.project3.Genre.Genre;
 import com.example.project3.R;
 
 public class MainAdapter extends PagerAdapter {
-    private int[] images = {R.drawable.one, R.drawable.two, R.drawable.three, R.drawable.four, R.drawable.five, R.drawable.six};
+    private int[] images = {R.drawable.white, R.drawable.white, R.drawable.white, R.drawable.white, R.drawable.white, R.drawable.white};
+    //private int[] images = {R.drawable.one, R.drawable.two, R.drawable.three, R.drawable.four, R.drawable.five, R.drawable.six};
     private String[] genres = {"HIPHOP", "POPPIN", "URBAN", "GIRLS", "WAACKING", "LOCKING"};
     private LayoutInflater inflater;
     private Context mcontext = null;

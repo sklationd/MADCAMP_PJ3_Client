@@ -32,7 +32,7 @@
             android:layout_alignBottom="@id/circleimage"
             android:gravity="center"
             android:text="장르 설명"
-            android:textColor="#FFFFFF"
+            android:textColor="#E57373"
             android:textSize="30dp"
             android:textStyle="bold"
             android:typeface="sans" />
