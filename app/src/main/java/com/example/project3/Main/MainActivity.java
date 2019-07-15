@@ -16,12 +16,18 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.project3.R;
 import com.example.project3.SplashActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 
@@ -68,27 +74,21 @@ public class MainActivity extends AppCompatActivity {
         adapter = new MainAdapter(this);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);
-        //swipe to youtube
-//        viewPager.setOnTouchListener(new OnSwipeTouchListener(context) {
-//            public void onSwipeTop() {
-//                Toast.makeText(MainActivity.this, "top", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(
-//                        Intent.ACTION_VIEW,
-//                        Uri.parse( "http://youtu.be/"));
-//                startActivity( intent );
 //
-//            }
-//            public void onSwipeRight() {
-//                Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
-//            }
-//            public void onSwipeLeft() {
-//                Toast.makeText(MainActivity.this, "left", Toast.LENGTH_SHORT).show();
-//            }
-//            public void onSwipeBottom() {
-//                Toast.makeText(MainActivity.this, "bottom", Toast.LENGTH_SHORT).show();
-//            }
+//        FirebaseInstanceId.getInstance().getInstanceId()
+//                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+//                        if (!task.isSuccessful()) {
+//                            return;
+//                        }
 //
-//        });
+//                        // Get new Instance ID token
+//                        String token = task.getResult().getToken();
+//                        Log.d("FCM TOKEN", token);
+//                    }
+//                });
+        FirebaseMessaging.getInstance().subscribeToTopic("all");
     }
     void handleTouch(MotionEvent m){
         //Number of touches
