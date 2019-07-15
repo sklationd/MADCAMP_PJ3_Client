@@ -39,6 +39,7 @@ public class RecyclerVideoAdapter extends RecyclerView.Adapter<RecyclerVideoAdap
         TextView title;
         TextView description;
         TextView comment;
+        TextView createdAt;
 
         public ViewHolder(View itemView) {
             super(itemView) ;
@@ -49,6 +50,7 @@ public class RecyclerVideoAdapter extends RecyclerView.Adapter<RecyclerVideoAdap
             title = itemView.findViewById(R.id.title);
             description = itemView.findViewById(R.id.description);
             comment=itemView.findViewById(R.id.comment);
+            createdAt = itemView.findViewById(R.id.createdat);
         }
     }
 
@@ -84,6 +86,7 @@ public class RecyclerVideoAdapter extends RecyclerView.Adapter<RecyclerVideoAdap
         holder.title.setText(item.getTitle());
         holder.user_post.setText(item.getAuthor());
         holder.description.setText(item.getDescription());
+        holder.createdAt.setText(item.getCreatedAt());
         holder.comment.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View view){
                 Intent intent=new Intent(context, CommentActivity.class);

@@ -82,18 +82,38 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/thumbnail"
             android:layout_marginLeft="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="3dp"
+            android:fontFamily="@font/nsrr"
             android:textSize="12dp"/>
 
-        <TextView
-            android:id="@+id/description"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="5dp"
             android:layout_below="@+id/title"
-            android:textSize="15dp"/>
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="3dp"
+                android:src="@drawable/ic_navigate_next_black_24dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="7dp"/>
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/nsrr"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="15dp"/>
 
+            </LinearLayout>
+        </LinearLayout>
         <TextView
             android:id="@+id/comment"
             android:layout_width="wrap_content"
@@ -102,6 +122,14 @@
             android:fontFamily="@font/agencyb"
             android:textSize="17dp"
             android:textStyle="bold"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp" />
+        <TextView
+            android:id="@+id/createdat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Created at"
+            android:textSize="10dp"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="10dp" />
     </LinearLayout>
