@@ -11,11 +11,12 @@ import android.widget.TextView;
 
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.bumptech.glide.Glide;
 import com.example.project3.Genre.Genre;
 import com.example.project3.R;
 
 public class MainAdapter extends PagerAdapter {
-    private int[] images = {R.drawable.white, R.drawable.white, R.drawable.white, R.drawable.white, R.drawable.white, R.drawable.white};
+    private int[] images = {R.drawable.hiphop, R.drawable.poppin, R.drawable.urban, R.drawable.girls, R.drawable.waacking, R.drawable.locking};
     //private int[] images = {R.drawable.one, R.drawable.two, R.drawable.three, R.drawable.four, R.drawable.five, R.drawable.six};
     private String[] genres = {"HIPHOP", "POPPIN", "URBAN", "GIRLS", "WAACKING", "LOCKING"};
     private LayoutInflater inflater;
@@ -53,7 +54,8 @@ public class MainAdapter extends PagerAdapter {
             }
         });
         //imageView.setImageResource(0);
-        imageView.setImageResource(images[position]);
+        Glide.with(mcontext).load(images[position]).into(imageView);
+        //imageView.setImageResource(images[position]);
         textView.setText(genres[position]);
         container.addView(v);
         return v;

@@ -17,9 +17,9 @@
             android:layout_height="300dp"
             android:layout_gravity="center"
             android:layout_marginTop="150dp"
-            android:clickable="true"
-            app:civ_border_color="@color/colorAccent"
-            app:civ_border_width="10dp" />
+            android:clickable="true"/>
+            <!--app:civ_border_color="@color/colorAccent"-->
+            <!--app:civ_border_width="10dp" />-->
 
         <TextView
             android:id="@+id/genre_description"
@@ -32,7 +32,7 @@
             android:layout_alignBottom="@id/circleimage"
             android:gravity="center"
             android:text="장르 설명"
-            android:textColor="#E57373"
+            android:textColor="#FFFFFF"
             android:textSize="30dp"
             android:textStyle="bold"
             android:typeface="sans" />
