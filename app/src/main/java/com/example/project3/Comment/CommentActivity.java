@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommentActivity extends AppCompatActivity {
-    private ArrayList<Comment> mMyData = new ArrayList<>();
+    public static ArrayList<Comment> mMyData = new ArrayList<>();
     private ArrayList<String> commentId = new ArrayList<>();
     private RecyclerView mRecyclerView;
     private RecyclerCommentAdapter mAdapter;
@@ -57,13 +57,20 @@ public class CommentActivity extends AppCompatActivity {
 
     RetroClient retroClient;
 
+    public static Context getParentContext(){
+        return context;
+    }
+    public static ArrayList<Comment> getMyData(){
+        return mMyData;
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getApplicationContext();
         setContentView(R.layout.comment);
         view = findViewById(R.id.comment_rootview);
-
         //Shared Preferences
         SharedPreferences sf = PreferenceManager.getDefaultSharedPreferences(context);
         Token = sf.getString("Token", null);
@@ -194,7 +201,6 @@ public class CommentActivity extends AppCompatActivity {
         swipeController = new SwipeController(new SwipeControllerActions() {
             @Override
             public void onRightClicked(final int position) {
-                //RetroClient retroClient = RetroClient.getInstance(this).createBaseApi();
                 deletedcomment = commentId.get(position);
                 deletedauthor = mMyData.get(position).getUsername();
                 retroClient.deleteComment(deletedauthor, deletedcomment, new RetroCallback() {

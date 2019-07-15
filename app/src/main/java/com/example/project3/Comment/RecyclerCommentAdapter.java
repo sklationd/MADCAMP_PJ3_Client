@@ -52,7 +52,9 @@ public class RecyclerCommentAdapter extends RecyclerView.Adapter<RecyclerComment
         final Comment item = mData.get(position);
         holder.author.setText(item.getUsername());
         holder.content.setText(item.getComment());
-        holder.time.setText(String.valueOf(item.getCreatedAt()));
+        String date = String.valueOf(item.getCreatedAt());
+        String modified = date.substring(0,date.indexOf("GMT+09:00")) + date.substring(30);
+        holder.time.setText(modified);
     }
 
     // getItemCount() - 전체 데이터 갯수 리턴.

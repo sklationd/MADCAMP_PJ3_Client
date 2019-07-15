@@ -51,6 +51,7 @@ public class MainAdapter extends PagerAdapter {
                 MainActivity.getParentContext().startActivity(intent);
             }
         });
+        //imageView.setImageResource(0);
         imageView.setImageResource(images[position]);
         textView.setText(genres[position]);
         container.addView(v);

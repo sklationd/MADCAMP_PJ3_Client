@@ -3,7 +3,9 @@ package com.example.project3.Genre;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +31,8 @@ public class RecyclerVideoAdapter extends RecyclerView.Adapter<RecyclerVideoAdap
     private ArrayList<VideoRecyclerItem> mData = null ;
     Context context;
     RetroClient retroClient;
+    String Username;
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 //implements View.OnCreateContextMenuListener
@@ -63,11 +67,16 @@ public class RecyclerVideoAdapter extends RecyclerView.Adapter<RecyclerVideoAdap
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext() ;
+        //Shared Preferences
+        SharedPreferences sf = PreferenceManager.getDefaultSharedPreferences(context);
+        String Token = sf.getString("Token", null);
+        Username = sf.getString("Id", null);
         retroClient= RetroClient.getInstance(context).createBaseApi();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) ;
         View view = inflater.inflate(R.layout.video_item, parent, false) ;
         ViewHolder vh = new ViewHolder(view) ;
         return vh ;
+
     }
 
     // onBindViewHolder() - position에 해당하는 데이터를 뷰홀더의 아이템뷰에 표시.
@@ -86,7 +95,9 @@ public class RecyclerVideoAdapter extends RecyclerView.Adapter<RecyclerVideoAdap
         holder.title.setText(item.getTitle());
         holder.user_post.setText(item.getAuthor());
         holder.description.setText(item.getDescription());
-        holder.createdAt.setText(item.getCreatedAt());
+        String date = String.valueOf(item.getCreatedAt());
+        String modified = date.substring(0,date.indexOf("GMT+09:00")) + date.substring(30);
+        holder.createdAt.setText(modified);
         holder.comment.setOnClickListener(new Button.OnClickListener(){
             public void onClick(View view){
                 Intent intent=new Intent(context, CommentActivity.class);
@@ -95,52 +106,57 @@ public class RecyclerVideoAdapter extends RecyclerView.Adapter<RecyclerVideoAdap
                 context.startActivity(intent);
             }
         });
-        holder.delete.setOnClickListener(new Button.OnClickListener(){
-            public void onClick(View view){
-                AlertDialog.Builder alt_bld = new AlertDialog.Builder(view.getContext());
-                alt_bld.setMessage("Do you want to delete the photo?").setCancelable(
-                        false).setPositiveButton("Yes",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                final int position = holder.getAdapterPosition();
-                                String deletedauthor = mData.get(position).getAuthor();
-                                int deletedgenre = mData.get(position).getGenre();
-                                String deletedvideoid = mData.get(position).getVideoId();
-                                retroClient.deleteVideo(deletedauthor, deletedgenre, deletedvideoid, new RetroCallback() {
-                                    @Override
-                                    public void onError(Throwable t) {
-                                        Log.e("error", "deletecommenterror");
-                                    }
-                                    @Override
-                                    public void onSuccess(int code, Object receivedData) {
-                                        // 아답타에게 알린다
-                                        mData.remove(position);
-                                        notifyItemRemoved(position);
-                                        notifyItemRangeChanged(position,mData.size());
-                                    }
-                                    @Override
-                                    public void onFailure(int code) {
-                                        Log.e("error", String.valueOf(code));
-                                        if (code == 401) {
-                                            Toast.makeText(context, "권한이 없습니다", Toast.LENGTH_SHORT).show();
+        if ((mData.get(position).getAuthor().matches(Username))){
+            holder.delete.setOnClickListener(new Button.OnClickListener(){
+                public void onClick(View view){
+                    AlertDialog.Builder alt_bld = new AlertDialog.Builder(view.getContext());
+                    alt_bld.setMessage("Do you want to delete the video?").setCancelable(
+                            false).setPositiveButton("Yes",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    final int position = holder.getAdapterPosition();
+                                    String deletedauthor = mData.get(position).getAuthor();
+                                    int deletedgenre = mData.get(position).getGenre();
+                                    String deletedvideoid = mData.get(position).getVideoId();
+                                    retroClient.deleteVideo(deletedauthor, deletedgenre, deletedvideoid, new RetroCallback() {
+                                        @Override
+                                        public void onError(Throwable t) {
+                                            Log.e("error", "deletecommenterror");
                                         }
-                                    }
-                                });
-                            }
-                        }).setNegativeButton("No",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog alert = alt_bld.create();
-                // Title for AlertDialog
-                alert.setTitle("DELETE");
-                // Icon for AlertDialog
-                alert.show();
+                                        @Override
+                                        public void onSuccess(int code, Object receivedData) {
+                                            // 아답타에게 알린다
+                                            mData.remove(position);
+                                            notifyItemRemoved(position);
+                                            notifyItemRangeChanged(position,mData.size());
+                                        }
+                                        @Override
+                                        public void onFailure(int code) {
+                                            Log.e("error", String.valueOf(code));
+                                            if (code == 401) {
+                                                Toast.makeText(context, "권한이 없습니다", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                                }
+                            }).setNegativeButton("No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert = alt_bld.create();
+                    // Title for AlertDialog
+                    alert.setTitle("DELETE");
+                    // Icon for AlertDialog
+                    alert.show();
 
-            }
-        });
+                }
+            });
+        }else{
+            holder.delete.setImageBitmap(null);
+        }
+
     }
 
     // getItemCount() - 전체 데이터 갯수 리턴.

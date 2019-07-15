@@ -1,12 +1,14 @@
 package com.example.project3.Networking;
 
+import java.util.Date;
+
 public class VideoInfo {
     public String username;
     public String videoId;
     public int genre;
     public String title;
     public String description;
-    public String createdAt;
+    public Date createdAt;
 
     public String getUsername() {
         return username;
@@ -41,10 +43,10 @@ public class VideoInfo {
         this.description = description;
     }
 
-    public String getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 }

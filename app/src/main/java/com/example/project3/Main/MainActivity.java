@@ -49,12 +49,12 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         //"HIPHOP", "POPPIN", "URBAN", "GIRLS", "WAACKING", "LOCKING"
-        genrelist.add(R.drawable.one);
-        genrelist.add(R.drawable.two);
-        genrelist.add(R.drawable.three);
-        genrelist.add(R.drawable.four);
-        genrelist.add(R.drawable.five);
-        genrelist.add(R.drawable.six);
+//        genrelist.add(R.drawable.one);
+//        genrelist.add(R.drawable.two);
+//        genrelist.add(R.drawable.three);
+//        genrelist.add(R.drawable.four);
+//        genrelist.add(R.drawable.five);
+//        genrelist.add(R.drawable.six);
 
         view.setOnTouchListener(new View.OnTouchListener(){
                 @Override

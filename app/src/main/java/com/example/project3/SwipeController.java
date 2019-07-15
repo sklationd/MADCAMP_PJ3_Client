@@ -1,9 +1,12 @@
 package com.example.project3;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,7 +15,11 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.ItemTouchHelper.Callback;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.project3.Comment.Comment;
+import com.example.project3.Comment.CommentActivity;
 import com.r0adkll.slidr.model.SlidrInterface;
+
+import java.util.ArrayList;
 
 import static androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_SWIPE;
 enum ButtonsState {
@@ -21,6 +28,8 @@ enum ButtonsState {
     RIGHT_VISIBLE
 }
 public class SwipeController extends Callback {
+    public ArrayList<Comment> mMyData = CommentActivity.getMyData();
+    public static Context context=CommentActivity.getParentContext();
     private boolean swipeBack = false;
     private boolean swipeFront = false;
     private ButtonsState buttonShowedState = ButtonsState.GONE;
@@ -29,6 +38,12 @@ public class SwipeController extends Callback {
     private SwipeControllerActions buttonsActions = null;
     private static final float buttonWidth = 300;
     private SlidrInterface slidr;
+    //Shared Preferences
+    SharedPreferences sf = PreferenceManager.getDefaultSharedPreferences(context);
+    String Token = sf.getString("Token", null);
+    String Username = sf.getString("Id", null);
+
+
 
     public SwipeController(SwipeControllerActions buttonsActions, SlidrInterface slidr) {
         this.buttonsActions = buttonsActions;
@@ -37,7 +52,15 @@ public class SwipeController extends Callback {
 
     @Override
     public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-        return makeMovementFlags(0, ItemTouchHelper.LEFT);
+        Log.d("current", mMyData.get(viewHolder.getAdapterPosition()).getUsername());
+        Log.d("loggedin", Username);
+        if ((mMyData.get(viewHolder.getAdapterPosition())).getUsername().matches(Username)){
+            Log.d("드드드", "들어옴");
+            return makeMovementFlags(0, ItemTouchHelper.LEFT);
+        }else{
+            Log.d("안돼", "못들어옴");
+            return makeMovementFlags(0, 0);
+        }
     }
 
     @Override
@@ -178,7 +201,6 @@ public class SwipeController extends Callback {
         p.setColor(Color.WHITE);
         p.setAntiAlias(true);
         p.setTextSize(textSize);
-
         float textWidth = p.measureText(text);
         c.drawText(text, button.centerX()-(textWidth/2), button.centerY()+(textSize/2), p);
     }
