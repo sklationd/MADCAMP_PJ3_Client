@@ -86,6 +86,7 @@ public class Genre extends AppCompatActivity {
         //toolbar
         Toolbar toolbar = findViewById(R.id.genre_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //init
         initVideoByGenre(position);
