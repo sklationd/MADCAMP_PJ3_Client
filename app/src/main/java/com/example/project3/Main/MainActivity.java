@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case MotionEvent.ACTION_POINTER_UP:
                     Log.d("차이포인터업", String.valueOf(GLOBAL_TOUCH_CURRENT_POSITION_X-GLOBAL_TOUCH_POSITION_X));
-                    if (Math.abs(GLOBAL_TOUCH_CURRENT_POSITION_X-GLOBAL_TOUCH_POSITION_X)>0){
+                    if (Math.abs(GLOBAL_TOUCH_CURRENT_POSITION_X-GLOBAL_TOUCH_POSITION_X)>15){
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse( "http://youtu.be/"));
                         startActivity(intent);
                         GLOBAL_TOUCH_POSITION_X = 0;

@@ -61,6 +61,7 @@ public class SwipeController extends Callback {
             Log.d("안돼", "못들어옴");
             return makeMovementFlags(0, 0);
         }
+        //return makeMovementFlags(0, ItemTouchHelper.LEFT);
     }
 
     @Override
@@ -105,14 +106,10 @@ public class SwipeController extends Callback {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 swipeBack = event.getAction() == MotionEvent.ACTION_CANCEL || event.getAction() == MotionEvent.ACTION_UP;
-//                swipeFront = event.getAction() == MotionEvent.ACTION_CANCEL || event.getAction() == MotionEvent.ACTION_DOWN;
-//                Log.d("B",Boolean.toString(swipeBack));
-//                Log.d("F",Boolean.toString(swipeFront));
 
                 if (swipeBack) {
                     if (dX < -buttonWidth) buttonShowedState = ButtonsState.RIGHT_VISIBLE;
                     if (buttonShowedState != ButtonsState.GONE) {
-//                        slidr.lock();
                         setTouchDownListener(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
                         setItemsClickable(recyclerView, false);
                     }
