@@ -37,6 +37,13 @@ public class RegisterActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
 
     @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+        startActivity(intent);
+        super.onBackPressed();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
