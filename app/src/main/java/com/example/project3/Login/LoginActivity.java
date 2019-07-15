@@ -129,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
     public void login(String id, String password) {
         String url = getApplicationContext().getString(R.string.login_uri);
         try {
-            new MyLogin().execute(url, id, password).get();
+            new MyLogin().execute(url, id, password);
             //new MyLogin().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url, id, password);
         } catch (Exception e) {
             e.printStackTrace();

@@ -2,10 +2,7 @@ package com.example.project3.Genre;
 
 import android.graphics.drawable.Drawable;
 
-import com.example.project3.Comment.Comment;
-
 import java.io.Serializable;
-import java.util.ArrayList;
 
 
 public class VideoRecyclerItem implements Serializable {
@@ -15,7 +12,8 @@ public class VideoRecyclerItem implements Serializable {
     private Drawable thumbnail;
     private String author;
     private String description;
-    private ArrayList<Comment> comment;
+    private String createdAt;
+//    private ArrayList<Comment> comment;
 
     public VideoRecyclerItem() {
     }
@@ -36,9 +34,10 @@ public class VideoRecyclerItem implements Serializable {
     public void setDescription(String desc) {
         this.description = desc;
     }
-    public void setComment(ArrayList<Comment> comment){
-        this.comment = comment;
-    }
+    public void setCreatedAt(String createdAt) { this.createdAt = createdAt; }
+//    public void setComment(ArrayList<Comment> comment){
+//        this.comment = comment;
+//    }
 
     public int getGenre(){ return this.genre;}
     public String getVideoId() {
@@ -56,8 +55,9 @@ public class VideoRecyclerItem implements Serializable {
     public String getDescription(){
         return this.description;
     }
-    public ArrayList<Comment> getComment(){
-        return comment;
-    }
+    public String getCreatedAt() { return this.createdAt; }
+//    public ArrayList<Comment> getComment(){
+//        return comment;
+//    }
 }
 
