@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         //"HIPHOP", "POPPIN", "URBAN", "GIRLS", "WAACKING", "LOCKING"
         genrelist.add(R.drawable.one);
         genrelist.add(R.drawable.two);
@@ -141,6 +142,27 @@ public class MainActivity extends AppCompatActivity {
             GLOBAL_TOUCH_POSITION_X = 0;
             GLOBAL_TOUCH_CURRENT_POSITION_X = 0;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder alBuilder = new AlertDialog.Builder(this);
+        alBuilder.setMessage("종료하시겠습니까?");
+
+        alBuilder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish(); // 현재 액티비티를 종료한다. (MainActivity에서 작동하기 때문에 애플리케이션을 종료한다.)
+            }
+        });
+        alBuilder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                return;
+            }
+        });
+        alBuilder.setTitle("종료");
+        alBuilder.show();
     }
 
     @Override
