@@ -210,6 +210,7 @@ public class LoginActivity extends AppCompatActivity {
         public void onPostExecute(String result) {
             // if token is null -> login fail
             if (result != null) {
+                Log.d("Token", result);
                 editor.putString("Token", result);
                 editor.apply();
                 if (sf.getString("youtube_url", null) != null) {

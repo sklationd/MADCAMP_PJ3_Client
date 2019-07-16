@@ -122,6 +122,7 @@ public class Genre extends AppCompatActivity {
                                 editor.remove("Id");
                                 editor.remove("Pw");
                                 editor.remove("Token");
+                                editor.clear();
                                 editor.apply();
                                 startActivity(new Intent(getApplicationContext(), SplashActivity.class));
                                 finish();

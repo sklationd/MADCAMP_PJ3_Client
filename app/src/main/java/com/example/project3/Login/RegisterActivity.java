@@ -37,13 +37,6 @@ public class RegisterActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
 
     @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-        startActivity(intent);
-        super.onBackPressed();
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
@@ -131,7 +124,7 @@ public class RegisterActivity extends AppCompatActivity {
                 JSONObject loginresult = new JSONObject(page);
                 if (loginresult.getBoolean("success")) {
                     editor.putString("Id", params[1]);
-                    editor.putString("Pw", params[2]);
+                    editor.putString("Pw", params[3]);
                     editor.apply();
                     return true;
                 } else {
